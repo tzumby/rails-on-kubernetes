@@ -1,0 +1,49 @@
+version: '3'
+services:
+  setup:
+    build: .
+    depends_on:
+      - db
+    environment:
+      - RAILS_ENV=development
+    entrypoint: ./setup.sh
+  db:
+    image: postgres
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=mysecurepass
+      - POSTGRES_DB=rails-kube-demo_development
+      - PGDATA=/var/lib/postgresql/data
+  db_data:
+    image: postgres
+    volumes:
+      - /var/lib/postgresql/data
+    command: /bin/true
+  sidekiq:
+    build: .
+    environment:
+      - REDIS_URL=redis
+      - REDIS_PORT=6379
+    depends_on:
+      - redis
+    entrypoint: ./sidekiq.sh
+  redis:
+    image: redis:3.2
+    ports:
+      - "6379:6379"
+  web:
+    build: .
+    depends_on:
+      - redis
+      - db
+      - setup
+    command: bundle exec rails s -p 3000 -b '0.0.0.0'
+    environment:
+      - REDIS_URL=redis
+      - REDIS_PORT=6379
+    volumes:
+      - .:/myapp
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
