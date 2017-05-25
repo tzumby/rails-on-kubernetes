@@ -1,0 +1,17 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: setup
+spec:
+  template:
+    metadata:
+      name: setup
+    spec:
+      containers:
+      - name: setup
+        image: tzumby/rails-app:latest
+        command: ["/bin/bash", "./setup.sh"]
+        env:
+        - name: RAILS_APP
+          value: development
+      restartPolicy: Never
