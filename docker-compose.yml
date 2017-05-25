@@ -1,7 +1,9 @@
 version: '3'
 services:
   setup:
-    build: .
+    build:
+      context: .
+      dockerfile: app.Dockerfile
     depends_on:
       - db
     environment:
@@ -20,24 +22,26 @@ services:
       - /var/lib/postgresql/data
     command: /bin/true
   sidekiq:
-    build: .
+    build: 
+      context: .
+      dockerfile: sidekiq.Dockerfile
     environment:
       - REDIS_URL=redis
       - REDIS_PORT=6379
     depends_on:
       - redis
-    entrypoint: ./sidekiq.sh
   redis:
     image: redis:3.2
     ports:
       - "6379:6379"
   web:
-    build: .
+    build: 
+      context: .
+      dockerfile: app.Dockerfile
     depends_on:
       - redis
       - db
       - setup
-    command: bundle exec rails s -p 3000 -b '0.0.0.0'
     environment:
       - REDIS_URL=redis
       - REDIS_PORT=6379
