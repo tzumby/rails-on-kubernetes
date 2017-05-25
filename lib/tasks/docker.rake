@@ -6,7 +6,7 @@ namespace :docker do
     puts "Building #{args[:image]} Docker image"
     sh "docker build -t tzumby/rails-#{args[:image]}:#{TAG} -f #{args[:image]}.Dockerfile ."
 
-    IMAGE_ID = `docker images | grep tzumby\/rails-#{args[:image]} | head -n1 | awk '{print $3}'`
+    IMAGE_ID = `docker images | grep tzumby\/rails-#{args[:image]} | head -n1 | awk '{print $3}'`.strip
 
     puts "Tagging latest image"
     sh "docker tag #{IMAGE_ID} tzumby/rails-#{args[:image]}:latest"

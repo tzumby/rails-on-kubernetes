@@ -10,7 +10,7 @@ development:
   database: rails-kube-demo_development
   username: postgres
   password: mysecurepass
-  host: db
+  host: postgres
   port: 5432
 
 # Warning: The database defined as "test" will be erased and
@@ -20,7 +20,7 @@ test:
   <<: *default
   username: postgres
   password: mysecurepass
-  host: db
+  host: postgres
   port: 5432
   database: rails-kube-demo_test
 

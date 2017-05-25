@@ -1,0 +1,15 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: nginx
+  name: rails-demo-ing
+spec:
+  rules:
+    - host: rails.local
+      http:
+        paths:
+          - backend:
+              serviceName: rails
+              servicePort: 3000
+            path: /

@@ -1,0 +1,41 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: rails
+  labels:
+    app: rails-kube-app
+spec:
+  ports:
+    - port: 3000
+  selector:
+    app: rails-kube-app
+    tier: rails
+---
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: rails
+spec:
+  replicas: 1
+  selector: 
+    app: rails-kube-app
+    tier: rails
+  template:
+    metadata:
+      name: rails
+      labels:
+        app: rails-kube-app
+        tier: rails
+    spec:
+      containers:
+      - name: rails
+        image: tzumby/rails-app:latest
+        env:
+        - name: REDIS_URL
+          value: redis
+        - name: REDIS_PORT
+          value: "6379"
+        - name: RAILS_ENV
+          value: development
+        ports:
+        - containerPort: 3000
