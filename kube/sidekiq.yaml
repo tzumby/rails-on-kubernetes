@@ -1,15 +1,4 @@
 apiVersion: v1
-kind: Service
-metadata:
-  name: sidekiq
-  labels:
-    app: rails-kube-app
-spec:
-  selector:
-    app: rails-kube-app
-    tier: sidekiq
----
-apiVersion: v1
 kind: ReplicationController
 metadata:
   name: sidekiq
@@ -27,7 +16,8 @@ spec:
     spec:
       containers:
       - name: sidekiq
-        image: tzumby/rails-sidekiq:latest
+        image: tzumby/rails-app:v2.3
+        args: ["bin/bundle exec sidekiq -C config/sidekiq.yml"]
         env:
         - name: REDIS_URL
           value: redis
