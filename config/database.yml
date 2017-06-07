@@ -1,0 +1,28 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+development:
+  <<: *default
+  database: rails-kube-demo_development
+  username: postgres
+  password: mysecurepass
+  host: postgres
+  port: 5432
+
+test:
+  <<: *default
+  username: postgres
+  password: mysecurepass
+  host: postgres
+  port: 5432
+  database: rails-kube-demo_test
+
+production:
+  <<: *default
+  database: <%= ENV['DATABASE_NAME'] %>
+  username: <%= ENV['DATABASE_USER'] %>
+  password: <%= ENV['DATABASE_PASS'] %>
+  host: <%= ENV['DATABASE_HOST'] %>
+  port: <%= ENV['DATABASE_PORT'] %>

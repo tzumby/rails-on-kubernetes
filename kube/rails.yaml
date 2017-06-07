@@ -29,9 +29,19 @@ spec:
     spec:
       containers:
       - name: rails
-        image: tzumby/rails-app:v2.3
+        image: tzumby/rails-app:latest
         args: ["rails s -p 3000 -b 0.0.0.0"]
         env:
+        - name: DATABASE_NAME
+          value: rails-kube-demo_production
+        - name: DATABASE_PORT
+          value: 5432
+        - name: DATABASE_URL
+          value: postgres
+        - name: DATABASE_USER
+          value: postgres
+        - value: DATABASE_PASS
+          value: mysecurepass
         - name: REDIS_URL
           value: redis
         - name: REDIS_PORT
