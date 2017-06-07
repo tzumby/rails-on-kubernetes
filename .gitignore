@@ -21,3 +21,5 @@
 # vim temp files
 *.swp
 *.swo
+
+config/database.yml
