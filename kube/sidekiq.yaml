@@ -20,20 +20,20 @@ spec:
         args: ["sidekiq -C config/sidekiq.yml"]
         env:
         - name: DATABASE_NAME
-          value: rails-kube-demo_production
+          value: "rails-kube-demo_production"
         - name: DATABASE_PORT
-          value: 5432
+          value: "5432"
         - name: DATABASE_URL
-          value: postgres
+          value: "postgres"
         - name: DATABASE_USER
-          value: postgres
-        - value: DATABASE_PASS
-          value: mysecurepass
+          value: "postgres"
+        - name: DATABASE_PASS
+          value: "mysecurepass"
         - name: REDIS_URL
-          value: redis
+          value: "redis"
         - name: REDIS_PORT
           value: "6379"
         - name: RAILS_ENV
-          value: production
+          value: "production"
         - name: SECRET_KEY_BASE
-          value: 50dae16d7d1403e175ceb2461605b527cf87a5b18479740508395cb3f1947b12b63bad049d7d1545af4dcafa17a329be4d29c18bd63b421515e37b43ea43df64
+          value: "50dae16d7d1403e175ceb2461605b527cf87a5b18479740508395cb3f1947b12b63bad049d7d1545af4dcafa17a329be4d29c18bd63b421515e37b43ea43df64"
