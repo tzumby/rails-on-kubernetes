@@ -46,5 +46,7 @@ test:
 production:
   <<: *default
   database: rails-kube-demo_production
-  username: rails-kube-demo
-  password: <%= ENV['RAILS-KUBE-DEMO_DATABASE_PASSWORD'] %>
+  username: postgres
+  password: mysecurepass
+  host: postgres
+  port: 5432

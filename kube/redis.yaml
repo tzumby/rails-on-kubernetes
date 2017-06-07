@@ -9,7 +9,7 @@ spec:
     - port: 6379
   selector:
     app: rails-kube-app
-    tier: redis
+    tier: cache
 ---
 apiVersion: v1
 kind: ReplicationController
@@ -19,13 +19,13 @@ spec:
   replicas: 1
   selector: 
     app: rails-kube-app
-    tier: redis
+    tier: cache
   template:
     metadata:
       name: redis
       labels:
         app: rails-kube-app
-        tier: redis
+        tier: cache
     spec:
       containers:
       - name: redis

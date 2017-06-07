@@ -9,7 +9,7 @@ spec:
     - port: 3000
   selector:
     app: rails-kube-app
-    tier: rails
+    tier: app
 ---
 apiVersion: v1
 kind: ReplicationController
@@ -19,24 +19,26 @@ spec:
   replicas: 1
   selector: 
     app: rails-kube-app
-    tier: rails
+    tier: app
   template:
     metadata:
       name: rails
       labels:
         app: rails-kube-app
-        tier: rails
+        tier: app
     spec:
       containers:
       - name: rails
         image: tzumby/rails-app:v2.3
-        args: ["bin/bundle exec rails s -p 3000 -b 0.0.0.0"]
+        args: ["rails s -p 3000 -b 0.0.0.0"]
         env:
         - name: REDIS_URL
           value: redis
         - name: REDIS_PORT
           value: "6379"
         - name: RAILS_ENV
-          value: development
+          value: production
+        - name: SECRET_KEY_BASE
+          value: 50dae16d7d1403e175ceb2461605b527cf87a5b18479740508395cb3f1947b12b63bad049d7d1545af4dcafa17a329be4d29c18bd63b421515e37b43ea43df64
         ports:
         - containerPort: 3000

@@ -10,8 +10,12 @@ spec:
       containers:
       - name: setup
         image: tzumby/rails-app:latest
-        command: ["/bin/bash", "./setup.sh"]
+        args: ["rake db:create && rake db:migrate"]
         env:
         - name: RAILS_APP
-          value: development
+          value: production
+        - name: REDIS_URL
+          value: redis
+        - name: REDIS_PORT
+          value: "6379"
       restartPolicy: Never
