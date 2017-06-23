@@ -1,24 +1,72 @@
-# README
+# Running this in development mode
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+You will need to install Docker Compose for this. Here's how you build the Docker images:
 
-Things you may want to cover:
+```
+docker-compose build
+```
 
-* Ruby version
+To run the application:
 
-* System dependencies
+```
+docker-compose up
+```
 
-* Configuration
+Then access it at ```http://localhost:3000```.
 
-* Database creation
+# Kubernetes
 
-* Database initialization
+## Postgres
 
-* How to run the test suite
+Create the necessary secrets:
 
-* Services (job queues, cache servers, search engines, etc.)
+```
+kubectl create secret generic db-user-pass --from-literal=password=mysecretpass
+kubectl create secret generic db-user --from-literal=username=postgres
+```
 
-* Deployment instructions
+And run the resource:
 
-* ...
+```
+kubectl create -f kube/postgres.yaml
+```
+
+## Redis
+
+```
+kubectl create -f kube/redis.yaml  
+```
+
+### Rails
+
+You will have to build and push the Rails image. Make sure you update the ```lib/tasks/docker.rake``` with your own username.
+
+```
+bundle exec rake docker:push_image
+```
+
+First run the setup Kube job to create the database and run migrations:
+
+```
+kubectl create -f kube/setup.yaml
+```
+
+```
+kubectl create -f kube/rails.yaml
+```
+
+```
+kubectl create -f kube/sidekiq.yaml
+```
+
+### Ingress
+
+Finally create the Ingress resource:
+
+```
+kubectl create -f kube/ingress.yaml
+```
+
+# Details
+
+For an in-depth step by step guide check out my blog post at: [Rails on kubernetes - Part 2](https://blog.cosmocloud.co/rails-on-kubernetes-part-2)
