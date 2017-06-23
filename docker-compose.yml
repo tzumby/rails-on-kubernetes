@@ -3,16 +3,22 @@ services:
   setup:
     build: . 
     depends_on:
-      - db
+      - postgres
     environment:
-      - RAILS_ENV=development
+      - REDIS_PORT=6379
+      - DATABASE_URL=postgres
+      - DATABASE_PORT=5432
+      - DATABASE_NAME=rails-kube-demo_production
+      - DATABASE_USER=postgres
+      - DATABASE_PASSWORD=mysecurepass
+      - RAILS_ENV=production
     entrypoint: ./setup.sh
-  db:
+  postgres:
     image: postgres
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=mysecurepass
-      - POSTGRES_DB=rails-kube-demo_development
+      - POSTGRES_DB=rails-kube-demo_production
       - PGDATA=/var/lib/postgresql/data
   db_data:
     image: postgres
@@ -25,6 +31,11 @@ services:
     environment:
       - REDIS_URL=redis
       - REDIS_PORT=6379
+      - DATABASE_URL=postgres
+      - DATABASE_PORT=5432
+      - DATABASE_NAME=rails-kube-demo_production
+      - DATABASE_USER=postgres
+      - DATABASE_PASSWORD=mysecurepass
     depends_on:
       - redis
   redis:
@@ -36,14 +47,17 @@ services:
     command: "bin/bundle exec rails s -p 3000 -b 0.0.0.0"
     depends_on:
       - redis
-      - db
+      - postgres
       - setup
     environment:
       - REDIS_URL=redis
       - REDIS_PORT=6379
+      - DATABASE_URL=postgres
+      - DATABASE_PORT=5432
+      - DATABASE_NAME=rails-kube-demo_production
+      - DATABASE_USER=postgres
+      - DATABASE_PASSWORD=mysecurepass
     volumes:
       - .:/myapp
     ports:
       - "3000:3000"
-    depends_on:
-      - db
