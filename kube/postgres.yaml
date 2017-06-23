@@ -63,9 +63,15 @@ spec:
         image: postgres:latest
         env:
         - name: POSTGRES_USER
-          value: postgres
+          valueFrom:
+            secretKeyRef:
+              name: db-user
+              key: username
         - name: POSTGRES_PASSWORD
-          value: mysecurepass
+          valueFrom:
+            secretKeyRef:
+              name: db-user-pass
+              key: password
         - name: POSTGRES_DB
           value: rails-kube-demo_development
         - name: PGDATA

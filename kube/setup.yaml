@@ -19,9 +19,15 @@ spec:
         - name: DATABASE_URL
           value: "postgres"
         - name: DATABASE_USER
-          value: "postgres"
+          valueFrom:
+            secretKeyRef:
+              name: db-user
+              key: username
         - name: DATABASE_PASS
-          value: "mysecurepass"
+          valueFrom:
+            secretKeyRef:
+              name: db-user-pass
+              key: password 
         - name: REDIS_URL
           value: "redis"
         - name: REDIS_PORT
@@ -29,7 +35,10 @@ spec:
         - name: RAILS_ENV
           value: "production"
         - name: SECRET_KEY_BASE
-          value: "50dae16d7d1403e175ceb2461605b527cf87a5b18479740508395cb3f1947b12b63bad049d7d1545af4dcafa17a329be4d29c18bd63b421515e37b43ea43df64"
+          valueFrom:
+            secretKeyRef:
+              name: secret-key-base
+              key: secret-key-base  
         - name: REDIS_URL
           value: redis
         - name: REDIS_PORT

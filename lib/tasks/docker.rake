@@ -1,6 +1,6 @@
 namespace :docker do
   desc "Push docker images to DockerHub"
-  task :push do
+  task :push_image do
     TAG = `git rev-parse --short HEAD`.strip
 
     puts "Building Docker image"

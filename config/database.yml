@@ -23,6 +23,6 @@ production:
   <<: *default
   database: <%= ENV.fetch("DATABASE_NAME") %>
   username: <%= ENV.fetch("DATABASE_USER") %>
-  password: <%= ENV.fetch("DATABASE_PASS") %>
+  password: <%= ENV.fetch("DATABASE_PASSWORD") %>
   host: <%= ENV.fetch("DATABASE_URL") %>
   port: <%= ENV.fetch("DATABASE_PORT") %>
