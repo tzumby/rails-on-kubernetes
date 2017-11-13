@@ -23,11 +23,11 @@ spec:
             secretKeyRef:
               name: "db-user"
               key: "username"
-        - name: DATABASE_PASS
+        - name: DATABASE_PASSWORD
           valueFrom:
             secretKeyRef:
               name: "db-user-pass"
-              key: "password "
+              key: "password"
         - name: REDIS_URL
           value: "redis"
         - name: REDIS_PORT
