@@ -1,7 +1,7 @@
 version: '3'
 services:
   setup:
-    build: . 
+    build: .
     depends_on:
       - postgres
     environment:
@@ -12,16 +12,16 @@ services:
       - DATABASE_USER=postgres
       - DATABASE_PASSWORD=mysecurepass
       - RAILS_ENV=production
-    entrypoint: ./setup.sh
+    command: "bin/rails db:migrate"
   postgres:
-    image: postgres
+    image: postgres:9.6-alpine
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=mysecurepass
       - POSTGRES_DB=rails-kube-demo_production
       - PGDATA=/var/lib/postgresql/data
   db_data:
-    image: postgres
+    image: postgres:9.6-alpine
     volumes:
       - /var/lib/postgresql/data
     command: /bin/true
@@ -39,7 +39,7 @@ services:
     depends_on:
       - redis
   redis:
-    image: redis:3.2
+    image: redis:3.2-alpine
     ports:
       - "6379:6379"
   web:

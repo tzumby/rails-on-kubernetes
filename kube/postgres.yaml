@@ -60,7 +60,7 @@ spec:
           claimName: postgres-pvc
       containers:
       - name: postgres
-        image: postgres:latest
+        image: postgres:9.6-alpine
         env:
         - name: POSTGRES_USER
           valueFrom:
