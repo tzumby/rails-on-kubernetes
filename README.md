@@ -16,25 +16,38 @@ Then access it at ```http://localhost:3000```.
 
 # Kubernetes
 
-## Postgres
+## Secrets
 
 Create the necessary secrets:
 
 ```
 kubectl create secret generic db-user-pass --from-literal=password=mysecretpass
 kubectl create secret generic db-user --from-literal=username=postgres
+lubectl create secret generic secret-key-base --from-literal=secret-key-base=50dae16d7d1403e175ceb2461605b527cf87a5b18479740508395cb3f1947b12b63bad049d7d1545af4dcafa17a329be4d29c18bd63b421515e37b43ea43df64
 ```
 
-And run the resource:
+## Postgres
+
+Create the volumes:
 
 ```
-kubectl create -f kube/postgres.yaml
+kubectl create -f kube/volumes/postgres_volumes.yaml
+```
+
+Create the Service and Deployment
+
+```
+kubectl create -f kube/services/postgres_svc.yaml
+kubectl create -f kube/deployments/postgres_deploy.yaml
 ```
 
 ## Redis
 
+Create the Service
+
 ```
-kubectl create -f kube/redis.yaml  
+kubectl create -f kube/services/redis_svc.yaml
+kubectl create -f kube/deployments/redis_deploy.yaml
 ```
 
 ### Rails
@@ -48,15 +61,19 @@ bundle exec rake docker:push_image
 First run the setup Kube job to create the database and run migrations:
 
 ```
-kubectl create -f kube/setup.yaml
+kubectl create -f kube/jobs/setup.yaml
 ```
 
-```
-kubectl create -f kube/rails.yaml
-```
+Create the Rails Service
 
 ```
-kubectl create -f kube/sidekiq.yaml
+kubectl create -f kube/services/rails_svc.yaml
+```
+
+And the Deployment
+
+```
+kubectl create -f kube/deployments/rails_deploy.yaml
 ```
 
 ### Ingress
@@ -64,7 +81,7 @@ kubectl create -f kube/sidekiq.yaml
 Finally create the Ingress resource:
 
 ```
-kubectl create -f kube/ingress.yaml
+kubectl create -f kube/ingresses/ingress.yaml
 ```
 
 # Details
