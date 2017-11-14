@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: sidekiq
-        image: tzumby/rails-app:latest
+        image: tzumby/rails-app-alpine:latest
         args: ["sidekiq -C config/sidekiq.yml"]
         env:
         - name: DATABASE_NAME

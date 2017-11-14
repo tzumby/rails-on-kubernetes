@@ -29,7 +29,7 @@ spec:
     spec:
       containers:
       - name: rails
-        image: tzumby/rails-app:latest
+        image: tzumby/rails-app-alpine:latest
         args: ["rake assets:precompile && rails s -p 3000 -b 0.0.0.0"]
         env:
         - name: RAILS_LOG_TO_STDOUT
