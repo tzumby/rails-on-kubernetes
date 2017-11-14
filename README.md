@@ -50,7 +50,7 @@ kubectl create -f kube/services/redis_svc.yaml
 kubectl create -f kube/deployments/redis_deploy.yaml
 ```
 
-### Rails
+## Rails
 
 You will have to build and push the Rails image. Make sure you update the ```lib/tasks/docker.rake``` with your own username.
 
@@ -76,7 +76,7 @@ And the Deployment
 kubectl create -f kube/deployments/rails_deploy.yaml
 ```
 
-### Ingress
+## Ingress
 
 Finally create the Ingress resource:
 
