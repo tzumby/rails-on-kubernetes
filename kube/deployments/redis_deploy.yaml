@@ -1,0 +1,23 @@
+---
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: redis-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels: 
+      app: rails-kube-app
+      tier: cache
+  template:
+    metadata:
+      name: redis
+      labels:
+        app: rails-kube-app
+        tier: cache
+    spec:
+      containers:
+      - name: redis
+        image: redis:3.2-alpine
+        ports:
+        - containerPort: 6379

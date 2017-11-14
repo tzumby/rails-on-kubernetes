@@ -1,24 +1,36 @@
-apiVersion: v1
-kind: ReplicationController
+---
+apiVersion: apps/v1beta2
+kind: Deployment
 metadata:
-  name: sidekiq
+  name: rails-deployment
 spec:
   replicas: 1
-  selector: 
-    app: rails-kube-app
-    tier: queue
+  minReadySeconds: 5
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1  
+  selector:
+    matchLabels: 
+      app: rails-kube-app
+      tier: app
   template:
     metadata:
-      name: sidekiq
+      name: rails
       labels:
         app: rails-kube-app
-        tier: queue
+        tier: app
     spec:
       containers:
-      - name: sidekiq
+      - name: rails
         image: tzumby/rails-app-alpine:latest
-        args: ["sidekiq -C config/sidekiq.yml"]
+        args: ["rake assets:precompile && rails s -p 3000 -b 0.0.0.0"]
         env:
+        - name: RAILS_LOG_TO_STDOUT
+          value: "true"
+        - name: RAILS_SERVE_STATIC_FILES
+          value: "true"
         - name: DATABASE_NAME
           value: "rails-kube-demo_production"
         - name: DATABASE_PORT
@@ -46,3 +58,5 @@ spec:
             secretKeyRef:
               name: "secret-key-base"
               key: "secret-key-base"
+        ports:
+          - containerPort: 3000
