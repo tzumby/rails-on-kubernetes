@@ -50,6 +50,7 @@ services:
       - postgres
       - setup
     environment:
+      - RAILS_ENV=development
       - REDIS_URL=redis
       - REDIS_PORT=6379
       - DATABASE_URL=postgres
