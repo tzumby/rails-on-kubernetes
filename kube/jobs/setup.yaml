@@ -39,8 +39,4 @@ spec:
             secretKeyRef:
               name: "secret-key-base"
               key: "secret-key-base"
-        - name: REDIS_URL
-          value: "redis"
-        - name: REDIS_PORT
-          value: "6379"
       restartPolicy: Never
