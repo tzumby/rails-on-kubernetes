@@ -10,6 +10,10 @@ podTemplate(label: 'pod-golang',
 ) {
     node ('pod-golang') {
 
+        stage('Checkout') {
+          checkout scm
+            }
+
         stage 'Build'
         container('golang') {
 
