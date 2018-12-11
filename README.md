@@ -1,4 +1,4 @@
-# Running this in development mode
+### Running this in development mode
 
 You will need to install Docker Compose for this. Here's how you build the Docker images:
 
