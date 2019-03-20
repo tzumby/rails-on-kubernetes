@@ -9,7 +9,7 @@ gem 'devise'
 gem 'sidekiq'
 gem 'tzinfo-data'
 
-gem 'bootstrap', '~> 4.0.0.beta2.1'
+gem "bootstrap", ">= 4.3.1"
 gem 'jquery-rails'
 
 gem "sprockets", ">= 3.7.2"
