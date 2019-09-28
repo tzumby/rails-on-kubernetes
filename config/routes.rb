@@ -7,4 +7,7 @@ Rails.application.routes.draw do
   devise_scope :user do
     root to: "devise/sessions#new"
   end
+
+  resources :private, only: [:index]
+  resources :static, only: [:index]
 end
