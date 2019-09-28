@@ -1,4 +1,4 @@
-FROM ruby:2.4.2-alpine3.6
+FROM ruby:2.6.4-alpine3.10
 
 RUN apk --update add nodejs netcat-openbsd postgresql-dev
 RUN apk --update add --virtual build-dependencies make g++
