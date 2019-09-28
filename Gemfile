@@ -5,9 +5,8 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-gem 'devise'
+gem "devise", ">= 4.7.1"
 gem 'sidekiq'
-gem 'tzinfo-data'
 
 gem "bootstrap", ">= 4.3.1"
 gem 'jquery-rails'
