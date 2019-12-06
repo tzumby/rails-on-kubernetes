@@ -109,7 +109,7 @@ GEM
     pg (0.21.0)
     popper_js (1.14.5)
     public_suffix (4.0.1)
-    puma (3.12.1)
+    puma (3.12.2)
     rack (2.0.7)
     rack-protection (2.0.7)
       rack
@@ -224,7 +224,7 @@ DEPENDENCIES
   jquery-rails
   listen (>= 3.0.5, < 3.2)
   pg (~> 0.18)
-  puma (~> 3.7)
+  puma (~> 3.12)
   rails (~> 5.1.1)
   sass-rails (~> 5.0)
   selenium-webdriver
