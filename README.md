@@ -86,4 +86,4 @@ kubectl create -f kube/ingresses/ingress.yaml
 
 # Details
 
-For an in-depth step by step guide check out my blog post at: [Rails on kubernetes - Part 2](https://blog.cosmocloud.co/rails-on-kubernetes-part-2)
+For an in-depth step by step guide check out my blog post at: [Rails on kubernetes - Part 2](https://www.monkeyvault.net/rails-on-kubernetes-part-2/)

@@ -1,4 +1,4 @@
-FROM ruby:2.6.4-alpine3.10
+FROM ruby:2.7-alpine3.10
 
 RUN apk --update add nodejs netcat-openbsd postgresql-dev
 RUN apk --update add --virtual build-dependencies make g++
@@ -10,6 +10,7 @@ WORKDIR /myapp
 ADD Gemfile /myapp/Gemfile
 ADD Gemfile.lock /myapp/Gemfile.lock
 
+RUN gem install bundler -v '1.17.2'
 RUN bundle install
 RUN apk del build-dependencies && rm -rf /var/cache/apk/*
 
